@@ -1,17 +1,18 @@
 package org.example.gameapp;
+
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+
 public class ShowInitialWindow {
     public static void show() {
         JFrame initialFrame = new JFrame("City Game");
         initialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initialFrame.setSize(400, 200);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - initialFrame.getWidth()) / 2;
+        int y = (screenSize.height - initialFrame.getHeight()) / 2;
+        initialFrame.setLocation(x,y);
 
         JButton startButton = new JButton("Start Game");
         JButton instructionsButton = new JButton("Instructions");

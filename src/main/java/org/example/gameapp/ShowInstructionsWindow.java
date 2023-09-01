@@ -9,6 +9,11 @@ public class ShowInstructionsWindow {
         instructionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         instructionsFrame.setSize(400, 300);
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - instructionsFrame.getWidth()) / 2;
+        int y = (screenSize.height - instructionsFrame.getHeight()) / 2;
+        instructionsFrame.setLocation(x,y);
+
         JTextArea instructionsArea = new JTextArea("Here are the game instructions...");
         instructionsArea.setEditable(false);
         instructionsFrame.getContentPane().add(new JScrollPane(instructionsArea), BorderLayout.CENTER);

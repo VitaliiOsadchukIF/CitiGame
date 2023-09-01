@@ -25,6 +25,13 @@ public class ShowGameWindow {
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameFrame.setSize(600, 400);
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - gameFrame.getWidth()) / 2;
+        int y = (screenSize.height - gameFrame.getHeight()) / 2;
+        gameFrame.setLocation(x,y);
+
+//        JLabel label = new JLabel();
+//        label.setText("computer count: " + "");
         playerBoard = new JTextField();
         computerBoard = new JTextField();
 
