@@ -1,6 +1,7 @@
 package org.example.gameapp;
 
 import org.example.Move;
+import org.example.Winner;
 
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
@@ -15,6 +16,9 @@ public class ShowGameWindow {
     private static Move move = new Move();
     private static JTextField playerBoard;
     private static JTextField computerBoard;
+    private static JButton skipButton;
+    private static JButton moveButton;
+    private static JButton surrenderButton;
 
     public static void show() {
         JFrame gameFrame = new JFrame("City Game");
@@ -24,9 +28,9 @@ public class ShowGameWindow {
         playerBoard = new JTextField();
         computerBoard = new JTextField();
 
-        JButton moveButton = new JButton("Move");
-        JButton skipButton = new JButton("Skip");
-        JButton surrenderButton = new JButton("Surrender");
+        moveButton = new JButton("Move");
+        skipButton = new JButton("Skip");
+        surrenderButton = new JButton("Surrender");
 
         computerBoard.setEditable(false);
 
@@ -61,6 +65,7 @@ public class ShowGameWindow {
         });
 
         skipButton.addActionListener(e -> {
+            computerBoard.setText("");
             String computerMove = move.skip(); // редагував код Віталія!!
             computerBoard.setText(computerBoard.getText() + computerMove + "\n"); // редагував код Віталія
         });
@@ -95,9 +100,27 @@ public class ShowGameWindow {
     }
 
     private static void processPlayerMove() {
+
         String input = playerBoard.getText().trim();
         playerBoard.setText("");
+
+//        computerBoard.setText(new Winner().wrongCity(input));
+
+
+        String str = new Winner().userHasGivenUp(input);
+        computerBoard.setText(str);
+
         move.playGame(input); // додав Віталій
+        String responseFromComputer = move.getComputerMove();
+        computerBoard.setText(responseFromComputer);
+
+
+
+
+
     }
+
+
 }
+
 
