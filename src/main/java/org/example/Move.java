@@ -10,6 +10,17 @@ public class Move {
     private ArrayList<String> cities;  // ідея підказує щоб доставити static
     private HashSet<String> usedCities;  // ідея підказує щоб доставити static
     private String lastCity;
+    private int countForPlayer = 0;
+
+    public int getCountForPlayer() {
+        return countForPlayer;
+    }
+
+    public int getCountForComputer() {
+        return countForComputer;
+    }
+
+    private int countForComputer = 0;
 
 
     public Move() {
@@ -28,6 +39,7 @@ public class Move {
         if (lastCity != null) {
             if (check(input)) {
                 usedCities.add(input);
+                countForPlayer++;
                 lastCity = input;
             } // else if (input.equals("I give up")) {
 //            // повідомлення в інтерфейс про програш гравця
