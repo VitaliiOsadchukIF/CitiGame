@@ -11,7 +11,7 @@ public class Main {
 
         GsonParser gsonParser = new GsonParser();
         System.out.println(gsonParser.getCityNames());
-        //GameApp.start();
+        //GameApp.start();//
         SwingUtilities.invokeLater(ShowInitialWindow::show);
 
     }
