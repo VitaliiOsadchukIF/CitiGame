@@ -111,15 +111,23 @@ public class ShowGameWindow {
         String input = playerBoard.getText().trim();
         playerBoard.setText("");
 
-//        computerBoard.setText(new Winner().wrongCity(input));
-
-
         String str = new Winner().userHasGivenUp(input);
         computerBoard.setText(str);
 
-        move.playGame(input); // додав Віталій
-        String responseFromComputer = move.getComputerMove();
-        computerBoard.setText(responseFromComputer);
+
+        if (move.isUserMoveValid(input)) {
+            move.playGame(input);
+
+            playerBoard.setText(""); // Очистити поле вводу
+            String computerMove = move.getComputerMove();
+            computerBoard.setText(computerMove);
+        } else {
+            // Вивести повідомлення про помилку
+            JOptionPane.showMessageDialog(null, "The entered city is invalid or does not comply with the rules. Please enter another city.", "Error", JOptionPane.ERROR_MESSAGE);
+            playerBoard.setText(""); // Очистити поле вводу
+        }
+
+
 
 
 
