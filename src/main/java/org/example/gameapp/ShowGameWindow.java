@@ -72,9 +72,14 @@ public class ShowGameWindow {
         });
 
         skipButton.addActionListener(e -> {
-            computerBoard.setText("");
-            String computerMove = move.skip(); // редагував код Віталія!!
-            computerBoard.setText(computerBoard.getText() + computerMove + "\n"); // редагував код Віталія
+          if (!computerBoard.getText().isEmpty()) {
+              String computerMove = move.skip(); // редагував код Віталія!!
+              computerBoard.setText(computerMove); // редагував код Віталія
+          } else {
+              JOptionPane.showMessageDialog(null, "The game is over because the city is not found.", "Error", JOptionPane.ERROR_MESSAGE);
+
+          }
+
         });
 
 
@@ -126,13 +131,6 @@ public class ShowGameWindow {
             JOptionPane.showMessageDialog(null, "The entered city is invalid or does not comply with the rules. Please enter another city.", "Error", JOptionPane.ERROR_MESSAGE);
             playerBoard.setText(""); // Очистити поле вводу
         }
-
-
-
-
-
-
-
     }
 
 
