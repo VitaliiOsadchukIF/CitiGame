@@ -7,8 +7,8 @@ import java.util.HashSet;
 
 public class Move {
 
-    private ArrayList<String> cities;  // ідея підказує щоб доставити static
-    private HashSet<String> usedCities;  // ідея підказує щоб доставити static
+    private static ArrayList<String> cities;  // ідея підказує щоб доставити static
+    private static HashSet<String> usedCities;  // ідея підказує щоб доставити static
     private String lastCity;
 
 
@@ -33,7 +33,7 @@ public class Move {
             }
 
 
-        if (check(input) || lastCity != null) {
+        if (isUserMoveValid(input) || lastCity != null) {
             usedCities.add(input);
             lastCity = input;
         } // else if (input.equals("I give up")) {
@@ -42,18 +42,7 @@ public class Move {
 //        }
 
 
-    //    private boolean check(String input) {
-//        return !usedCities.contains(input) &&
-//                input.startsWith(lastCity.substring(lastCity.length() - 1).toUpperCase());
-//    }
-    private boolean check(String input) {
-        if (lastCity == null) {
-            return true;
-        }
-        return !usedCities.contains(input) && cities.contains(input) &&
-                input.toUpperCase().startsWith(lastCity.substring(lastCity.length() - 1).toUpperCase());
-    } // редагував код Віталія, тому що була помилка після нажаття кнопки Skip
-    // Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException: Cannot invoke "String.length()" because "this.lastCity" is null
+
 
     public String getComputerMove() {
 
@@ -61,7 +50,7 @@ public class Move {
         String nextCity = "";
 
         for (String city : cities) {
-            if (check(city)) {
+            if (isUserMoveValid(city)) {
                 nextCity = city;
                 break;
             }
@@ -75,4 +64,25 @@ public class Move {
     public String skip() {
         return getComputerMove();
     }
+
+
+    public boolean isUserMoveValid(String userCity) {
+        if (usedCities.isEmpty()) {
+            // Перший хід гравця може бути будь-яким містом
+            return cities.contains(userCity);
+        } else {
+            // Перевірка наступних ходів гравця
+            if (usedCities.contains(userCity)) {
+                return false;
+            }
+
+            if (!userCity.toLowerCase().startsWith(lastCity.substring(lastCity.length() - 1).toLowerCase())) {
+                return false;
+            }
+
+            return cities.contains(userCity);
+        }
+    }
+
+
 }
