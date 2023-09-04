@@ -12,11 +12,23 @@ public class ShowInstructionsWindow {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - instructionsFrame.getWidth()) / 2;
         int y = (screenSize.height - instructionsFrame.getHeight()) / 2;
-        instructionsFrame.setLocation(x,y);
+        instructionsFrame.setLocation(x, y);
+
+        instructionsFrame.getContentPane().setBackground(Color.GRAY);
 
         JTextArea instructionsArea = new JTextArea("Here are the game instructions...");
         instructionsArea.setEditable(false);
-        instructionsFrame.getContentPane().add(new JScrollPane(instructionsArea), BorderLayout.CENTER);
+
+        Font boldFont = new Font("Arial", Font.BOLD, 14);
+        instructionsArea.setFont(boldFont);
+
+        instructionsArea.setBackground(Color.GRAY);
+
+        JScrollPane scrollPane = new JScrollPane(instructionsArea);
+
+        scrollPane.getViewport().setBackground(Color.GRAY);
+
+        instructionsFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> instructionsFrame.dispose());
@@ -25,5 +37,3 @@ public class ShowInstructionsWindow {
         instructionsFrame.setVisible(true);
     }
 }
-
-
