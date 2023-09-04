@@ -28,10 +28,8 @@ public class ShowGameWindow {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - gameFrame.getWidth()) / 2;
         int y = (screenSize.height - gameFrame.getHeight()) / 2;
-        gameFrame.setLocation(x,y);
+        gameFrame.setLocation(x, y);
 
-//        JLabel label = new JLabel();
-//        label.setText("computer count: " + "");
         playerBoard = new JTextField();
         computerBoard = new JTextField();
 
@@ -40,10 +38,7 @@ public class ShowGameWindow {
         surrenderButton = new JButton("Surrender");
 
         computerBoard.setEditable(false);
-
-        Dimension textFieldSize = new Dimension(200, 30);
-        computerBoard.setPreferredSize(textFieldSize);
-        playerBoard.setPreferredSize(textFieldSize);
+        playerBoard.setEditable(true);
 
         Font inputFont = new Font("Arial", Font.PLAIN, 14);
         playerBoard.setFont(inputFont);
@@ -72,16 +67,10 @@ public class ShowGameWindow {
         });
 
         skipButton.addActionListener(e -> {
-          if (!computerBoard.getText().isEmpty()) {
-              String computerMove = move.skip(); // редагував код Віталія!!
-              computerBoard.setText(computerMove); // редагував код Віталія
-          } else {
-              JOptionPane.showMessageDialog(null, "The game is over because the city is not found.", "Error", JOptionPane.ERROR_MESSAGE);
-
-          }
-
+            computerBoard.setText("");
+            String computerMove = move.skip();
+            computerBoard.setText(computerBoard.getText() + computerMove + "\n");
         });
-
 
         surrenderButton.addActionListener(e -> {
             playerBoard.setText("");
@@ -91,49 +80,36 @@ public class ShowGameWindow {
             ShowInitialWindow.show();
         });
 
-        JPanel topPanel = new JPanel(new GridLayout(1, 2));
-        topPanel.add(playerBoard);
-        topPanel.add(computerBoard);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 3));
-        buttonPanel.add(moveButton);
-        buttonPanel.add(skipButton);
-        buttonPanel.add(surrenderButton);
+        playerBoard.setBounds(50, 50, 200, 30);
+        computerBoard.setBounds(270, 50, 200, 30);
+        moveButton.setBounds(50, 100, 80, 30);
+        skipButton.setBounds(140, 100, 80, 30);
+        surrenderButton.setBounds(230, 100, 100, 30);
+        playerBoard.setCaretColor(Color.blue);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        gameFrame.setLayout(null);
 
-        mainPanel.setBackground(Color.GRAY);
+        gameFrame.add(playerBoard);
+        gameFrame.add(computerBoard);
+        gameFrame.add(moveButton);
+        gameFrame.add(skipButton);
+        gameFrame.add(surrenderButton);
 
-        gameFrame.getContentPane().add(mainPanel);
+        gameFrame.getContentPane().setBackground(Color.GRAY);
+
         gameFrame.setVisible(true);
     }
 
     private static void processPlayerMove() {
-
         String input = playerBoard.getText().trim();
         playerBoard.setText("");
 
         String str = new Winner().userHasGivenUp(input);
         computerBoard.setText(str);
 
-
-        if (move.isUserMoveValid(input)) {
-            move.playGame(input);
-
-            playerBoard.setText(""); // Очистити поле вводу
-            String computerMove = move.getComputerMove();
-            computerBoard.setText(computerMove);
-        } else {
-            // Вивести повідомлення про помилку
-            JOptionPane.showMessageDialog(null, "The entered city is invalid or does not comply with the rules. Please enter another city.", "Error", JOptionPane.ERROR_MESSAGE);
-            playerBoard.setText(""); // Очистити поле вводу
-        }
+        move.playGame(input);
+        String responseFromComputer = move.getComputerMove();
+        computerBoard.setText(responseFromComputer);
     }
-
-
 }
-
-

@@ -12,10 +12,19 @@ public class ShowInitialWindow {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - initialFrame.getWidth()) / 2;
         int y = (screenSize.height - initialFrame.getHeight()) / 2;
-        initialFrame.setLocation(x,y);
+        initialFrame.setLocation(x, y);
 
-        JButton startButton = new JButton("Start Game");
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
+        Font labelFont = new Font("Arial", Font.BOLD, 16);
+
+        JButton startButton = new JButton("OK");
+        startButton.setFont(buttonFont);
+
         JButton instructionsButton = new JButton("Instructions");
+        instructionsButton.setFont(buttonFont);
+
+        JLabel startLabel = new JLabel("To start the game, press OK");
+        startLabel.setFont(labelFont);
 
         startButton.addActionListener(e -> {
             initialFrame.dispose();
@@ -27,13 +36,13 @@ public class ShowInitialWindow {
         });
 
         JPanel panel = new JPanel();
-        panel.add(new JLabel("To start the game, press OK"));
+        panel.setBackground(Color.gray);
+
+        panel.add(startLabel);
         panel.add(startButton);
         panel.add(instructionsButton);
 
-        initialFrame.getContentPane().add(panel);
+        initialFrame.add(panel);
         initialFrame.setVisible(true);
     }
 }
-
-
